@@ -1,0 +1,32 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: check-signed-images
+  namespace: giropops
+spec:
+  validationFailureAction: enforce
+  background: true
+  rules:
+  - name: validate-image-signature
+    match:
+      resources:
+        kinds:
+        - Pod
+    validate:
+      message: "A imagem '{{image}}' não está assinada com Cosign."
+      pattern:
+        spec:
+          containers:
+          - image: "*"
+            imagePullSecrets:
+            - name: cosign-public-key
+      verifyImages:
+      - image: "hub.docker.com/r/k0dy/*"
+        key: "cosign.pub"
+        attestors:
+        - count: 1
+          conditions:
+            all:
+            - key: "{{ image }}"
+              operator: NotEquals
+              value: "hub.docker.com/r/k0dy/giropops-senhas-projeto-pick"

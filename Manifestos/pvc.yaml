@@ -1,0 +1,17 @@
+apiVersion: v1  # Versão da API do Kubernetes para o recurso PersistentVolumeClaim
+kind: PersistentVolumeClaim  # Tipo de recurso sendo definido, neste caso, um PersistentVolumeClaim
+metadata:  # Metadados do recurso
+  labels:  # Etiquetas para identificar o recurso
+    pvc: redis-pvc  # Etiqueta "pvc" com valor "meu-primero-pvc"
+  name: redis-pvc  # Nome do PersistentVolumeClaim, neste caso, "meu-pvc"
+  namespace: giropops
+spec:  # Especificações do PersistentVolumeClaim
+  accessModes:  # Modos de acesso ao volume
+    - ReadWriteOnce  # Modo de acesso, que neste caso é "ReadWriteOnce"
+  resources:  # Recursos solicitados pelo PersistentVolumeClaim
+    requests:  # Recursos requisitados
+      storage: 1Gi  # Tamanho de armazenamento solicitado, neste caso, 1 gigabyte (Gi)
+  storageClassName: giropops  # Nome da classe de armazenamento a ser usada pelo PersistentVolumeClaim
+  selector:  # Seletor para encontrar o PersistentVolume a ser reivindicado
+    matchLabels:  # Corresponde às etiquetas especificadas
+      storage: redis-pv  # Etiqueta "storage" com valor "nfs"

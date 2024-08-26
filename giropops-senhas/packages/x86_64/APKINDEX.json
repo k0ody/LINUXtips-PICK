@@ -1,0 +1,33 @@
+{
+  "Signature": null,
+  "Description": "",
+  "Packages": [
+    {
+      "Name": "giropops-senhas",
+      "Version": "0.1.0-r0",
+      "Arch": "x86_64",
+      "Description": "Giropops Senhas Application",
+      "License": "Apache-2.0",
+      "Origin": "giropops-senhas",
+      "Maintainer": "",
+      "URL": "",
+      "Checksum": "lG2qUDqMIJQJKH8a5s/lSs2+lwA=",
+      "Dependencies": [
+        "python3",
+        "so:libc.musl-x86_64.so.1"
+      ],
+      "Provides": [
+        "cmd:giropops-senhas=0.1.0-r0"
+      ],
+      "InstallIf": null,
+      "Size": 6139397,
+      "InstalledSize": 17799623,
+      "ProviderPriority": 0,
+      "BuildTime": "1970-01-01T00:00:00Z",
+      "BuildDate": 0,
+      "RepoCommit": "",
+      "Replaces": null,
+      "DataHash": "058ed1b52cfec826d3588f91897d9733153448279d73140e4d37073b40c603f3"
+    }
+  ]
+}
