@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-sensitive-env-vars
+spec:
+  validationFailureAction: audit
+  background: true
+  rules:
+  - name: check-env-vars
+    match:
+      resources:
+        kinds:
+        - Pod
+    validate:
+      message: "Variáveis de ambiente sensíveis detectadas."
+      pattern:
+        spec:
+          containers:
+          - env:
+            - name: "*SECRET*"
+            - name: "*PASSWORD*"

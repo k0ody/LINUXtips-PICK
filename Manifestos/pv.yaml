@@ -1,16 +1,14 @@
-apiVersion: v1  # Versão da API do Kubernetes para o recurso PersistentVolume
-kind: PersistentVolume  # Tipo de recurso sendo definido, neste caso, um PersistentVolume
-metadata:  # Metadados do recurso
-  labels:  # Etiquetas para identificar o recurso
-    storage: 
-  name: redis-pv  # Nome do PersistentVolume, neste caso, "meu-pv"
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-pv
   namespace: giropops
-spec:  # Especificações do PersistentVolume
-  capacity:  # Capacidade do volume
-    storage: 1Gi  # Tamanho de armazenamento disponível, neste caso, 1 gigabyte (Gi)
-  accessModes:  # Modos de acesso ao volume
-    - ReadWriteOnce  # Modo de acesso, que neste caso é "ReadWriteOnce"
-  persistentVolumeReclaimPolicy: Retain  # Política de recuperação do volume, que neste caso é "Retain"
-  hostPath:  # Tipo de volume baseado em caminho do host
-    path: /mnt/data  # Caminho do sistema de arquivos do host onde o volume será montado
-  storageClassName: giropops  # Nome da classe de armazenamento a ser usado pelo PersistentVolume
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data
+  storageClassName: giropops

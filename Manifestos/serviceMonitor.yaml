@@ -3,6 +3,8 @@ kind: ServiceMonitor
 metadata:
   name: giropops-senhas-monitor
   namespace: giropops
+  labels:
+    release: prometheus
 spec:
   selector:
     matchLabels:

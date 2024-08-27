@@ -1,0 +1,38 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: compliance-check
+  namespace: giropops
+spec:
+  validationFailureAction: enforce
+  background: true
+  rules:
+  - name: enforce-resource-requests-limits
+    match:
+      resources:
+        kinds:
+        - Pod
+    validate:
+      message: "Todos os containers devem especificar requests e limits de CPU e memória."
+      pattern:
+        spec:
+          containers:
+          - resources:
+              requests:
+                cpu: "?*"
+                memory: "?*"
+              limits:
+                cpu: "?*"
+                memory: "?*"
+  - name: enforce-readonly-rootfs
+    match:
+      resources:
+        kinds:
+        - Pod
+    validate:
+      message: "O filesystem root deve ser somente leitura."
+      pattern:
+        spec:
+          containers:
+          - securityContext:
+              readOnlyRootFilesystem: true

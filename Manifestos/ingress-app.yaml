@@ -5,7 +5,12 @@ metadata:
   namespace: giropops
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  tls:
+  - hosts:
+    - giropops.k0dy.pro
+    secretName: giropops-senhas-tls
   ingressClassName: nginx
   rules:
   - host: giropops.k0dy.pro
