@@ -2,9 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: giropops-senhas
+    app: redis
   name: redis-deployment
-  namespace: giropops
 spec:
   replicas: 1
   selector:
@@ -27,14 +26,14 @@ spec:
             requests:
               cpu: "250m"
               memory: "128Mi"
-          volumeMounts:
-            - mountPath: /data
-              name: redis-persistent-storage
-          securityContext:
+          #volumeMounts:
+            #- mountPath: /data
+              #name: redis-persistent-storage
+          #securityContext:
             #runAsNonRoot: true
-            readOnlyRootFilesystem: true
+            #readOnlyRootFilesystem: true
           
-      volumes:
-        - name: redis-persistent-storage
-          persistentVolumeClaim:
-            claimName: redis-pvc
+      #volumes:
+        #- name: redis-persistent-storage
+          #persistentVolumeClaim:
+            #claimName: redis-pvc

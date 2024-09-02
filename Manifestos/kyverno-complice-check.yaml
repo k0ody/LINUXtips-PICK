@@ -2,7 +2,6 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: compliance-check
-  namespace: giropops
 spec:
   validationFailureAction: enforce
   background: true

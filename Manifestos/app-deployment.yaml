@@ -4,7 +4,6 @@ metadata:
   labels:
     app: giropops-senhas
   name: giropops-senhas
-  namespace: giropops
 spec:
   replicas: 2
   selector:
@@ -22,7 +21,7 @@ spec:
     spec:
       containers:
         - name: giropops-senhas
-          image: linuxtips/giropops-senhas:1.0
+          image: k0dy/linuxtips-giropops-senha-distroless:1.0
           ports:
             - containerPort: 5000
           resources:

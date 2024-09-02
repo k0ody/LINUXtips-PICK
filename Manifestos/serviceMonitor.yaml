@@ -2,7 +2,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: giropops-senhas-monitor
-  namespace: giropops
   labels:
     release: prometheus
 spec:
