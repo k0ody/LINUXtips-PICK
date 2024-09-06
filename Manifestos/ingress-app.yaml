@@ -22,10 +22,3 @@ spec:
             name: giropops-senhas
             port:
               number: 5000
-      - path: /grafana
-        pathType: Prefix
-        backend:
-          service:
-            name: giropops-senhas-grafana
-            port:
-              number: 3000

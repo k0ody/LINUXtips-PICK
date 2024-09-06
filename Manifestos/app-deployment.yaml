@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: giropops-senhas
-          image: k0dy/linuxtips-giropops-senha-distroless:1.0
+          image: k0dy/giropops-senhas-distroless-projeto:1.0 
           ports:
             - containerPort: 5000
           resources:
@@ -56,3 +56,33 @@ spec:
           securityContext:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis
+  name: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+            requests:
+              cpu: "250m"
+              memory: "128Mi"

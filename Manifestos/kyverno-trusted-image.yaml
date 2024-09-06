@@ -2,31 +2,39 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: check-signed-images
-  namespace: giropops
 spec:
   validationFailureAction: enforce
-  background: true
+  background: false  
+  webhookTimeoutSeconds: 30
+  failurePolicy: Fail
   rules:
-  - name: validate-image-signature
-    match:
-      resources:
-        kinds:
-        - Pod
-    validate:
-      message: "A imagem '{{image}}' não está assinada com Cosign."
-      pattern:
-        spec:
-          containers:
-          - image: "*"
-            imagePullSecrets:
-            - name: cosign-public-key
+    - name: verify-image-signature
+      match:
+        any:
+        - resources:
+            kinds:
+            - Pod
       verifyImages:
-      - image: "hub.docker.com/r/k0dy/*"
-        key: "cosign.pub"
-        attestors:
-        - count: 1
-          conditions:
-            all:
-            - key: "{{ image }}"
-              operator: NotEquals
-              value: "hub.docker.com/r/k0dy/giropops-senhas-projeto-pick"
+        - imageReferences:
+            - "k0dy/giropops-senhas-distroless-projeto:*"
+          mutateDigest: true
+          attestors:
+          - entries:
+            - keys: 
+                publicKeys: |-
+                 -----BEGIN PUBLIC KEY-----
+                 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAETBn5bVBQj9VA3nfIru67bZ6+QYVi
+                 1nDDI9b2y3pdjg3vJ26nMYaUlsz/Kk3CgMd1zvVklEwCqhgjYIZCDf64cw==
+                 -----END PUBLIC KEY-----          
+    - name: validate-image-signature
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        pattern:
+          spec:
+            containers:
+              - image: "*"
+        message: "A imagem '{{request.object.spec.containers[*].image}}' não está assinada com Cosign."
