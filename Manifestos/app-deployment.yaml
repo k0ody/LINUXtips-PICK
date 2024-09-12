@@ -35,24 +35,7 @@ spec:
             - name: REDIS_HOST
               value: redis-service
           imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-            successThreshold: 1
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-            successThreshold: 1
+         
           securityContext:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
